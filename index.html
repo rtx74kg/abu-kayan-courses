@@ -20,19 +20,14 @@
             color: var(--main-color);
             font-family: 'Cairo', sans-serif;
             direction: rtl;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            overflow: hidden;
             text-align: center;
             position: relative;
         }
 
         /* الطبقة الخلفية (الموقع الوهمي) */
         .background-content {
-            position: absolute;
+            position: fixed; /* تم تثبيت الخلفية لتملأ الشاشة */
             top: 0;
             left: 0;
             width: 100vw;
@@ -69,17 +64,15 @@
 
         /* الطبقة الأمامية (صفحة الصيانة) */
         .maintenance-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            position: relative; /* تم تغيير الوضع إلى نسبي للسماح بالتمرير */
             z-index: 2;
             background-color: var(--overlay-color);
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            min-height: 100vh; /* تأكد من أن الصفحة طويلة بما يكفي */
+            padding: 50px 0; /* لإضافة مساحة علوية وسفلية */
         }
 
         .container {
@@ -90,6 +83,8 @@
             position: relative;
             background: rgba(13, 17, 23, 0.8);
             direction: rtl;
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
         
         .glitch-text {
@@ -161,24 +156,6 @@
                 font-size: 0.9em;
             }
         }
-
-        /* تصميم التاج الملكي */
-        .royal-crown {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3; 
-            font-size: 3em;
-            color: gold;
-            text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px yellow;
-            animation: glowing-crown 1.5s infinite alternate; 
-        }
-
-        @keyframes glowing-crown {
-            from { text-shadow: 0 0 5px gold, 0 0 10px gold; }
-            to { text-shadow: 0 0 15px gold, 0 0 25px yellow, 0 0 35px gold; }
-        }
     </style>
 </head>
 <body>
@@ -196,9 +173,6 @@
     </div>
 
     <div class="maintenance-overlay">
-        <div class="royal-crown">
-            &#x1F451; 
-        </div>
         <div class="container">
             <h1 class="glitch-text" data-text="هجمة">هجمة</h1>
             <div class="subtitle">النظام تحت الصيانة</div>
