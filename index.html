@@ -1,115 +1,373 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-16">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هجمة الموقع - تعليم الاختراق الأخلاقي</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>هجمة - الموقع تحت الصيانة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto+Mono:wght@400&display=swap');
+        
+        :root {
+            --bg-color: #0d1117;
+            --main-color: #00ff41;
+            --glitch-color-1: #ff00c8;
+            --glitch-color-2: #00ffff;
+            --overlay-color: rgba(13, 17, 23, 0.95);
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        /* الطبقة الخلفية (الموقع الوهمي) */
+        .background-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Roboto Mono', monospace;
+            color: #555;
+            background-color: #000;
+        }
+        
+        .terminal {
+            width: 90%;
+            max-width: 900px;
+            height: 80vh;
+            background-color: #111;
+            border: 2px solid #222;
+            padding: 20px;
+            overflow-y: auto;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        }
+        
+        .terminal-line {
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        
+        .terminal-line .user {
+            color: var(--main-color);
+        }
+
+        /* الطبقة الأمامية (صفحة الصيانة) */
+        .maintenance-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+            background-color: var(--overlay-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 90vw;
+            padding: 20px;
+            border: 2px solid var(--main-color);
+            box-shadow: 0 0 15px var(--main-color);
+            position: relative;
+            background: rgba(13, 17, 23, 0.8);
+            direction: rtl;
+        }
+        
+        .glitch-text {
+            font-size: 3em;
+            font-weight: 700;
+            position: relative;
+            animation: glitch-anim 2.5s infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            margin-top: 10px;
+            color: #ccc;
+        }
+        
+        .message {
+            font-size: 1.2em;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .updates-glimpse {
+            margin-top: 40px;
+            padding: 15px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: right;
+            font-family: 'Roboto Mono', monospace;
+            direction: ltr;
+        }
+        
+        .updates-glimpse h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+            color: #fff;
+            text-align: center;
+        }
+
+        .updates-glimpse ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .updates-glimpse li {
+            margin-bottom: 8px;
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .updates-glimpse li::before {
+            content: ">> ";
+            color: var(--main-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 2em;
+            }
+            .subtitle {
+                font-size: 1.2em;
+            }
+            .message {
+                font-size: 1em;
+            }
+            .updates-glimpse {
+                font-size: 0.9em;
+            }
+            .chatbot-container {
+                width: 90vw; /* عرض أكبر على الجوال */
+                max-width: 250px; /* حد أقصى للحجم */
+                height: 350px;
+                font-size: 0.8em;
+            }
+        }
+
+        /* تصميم الروبوت */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px; 
+            width: 280px; /* حجم مصغر افتراضي */
+            height: 380px; /* حجم مصغر افتراضي */
+            background: #111;
+            border: 2px solid var(--main-color);
+            box-shadow: 0 0 15px var(--main-color);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            direction: rtl;
+        }
+        
+        .chat-header {
+            background: #0d1117;
+            color: var(--main-color);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 1px solid var(--main-color);
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse; 
+        }
+        
+        .message-box {
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+        
+        .bot-message {
+            text-align: right;
+            color: var(--main-color);
+            font-size: 0.9em;
+        }
+        
+        .user-message {
+            text-align: left;
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid var(--main-color);
+            padding: 10px;
+        }
+        
+        .chat-input input {
+            flex-grow: 1;
+            background: #222;
+            border: none;
+            color: var(--main-color);
+            padding: 5px;
+            font-family: 'Cairo', sans-serif;
+            text-align: right;
+            outline: none;
+        }
+        
+        .chat-input button {
+            background: var(--main-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* تصميم التاج الملكي */
+        .royal-crown {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3; /* ليكون فوق طبقة الصيانة */
+            font-size: 3em;
+            color: gold;
+            text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px yellow;
+            animation: glowing-crown 1.5s infinite alternate; /* تأثير الوميض */
+        }
+
+        @keyframes glowing-crown {
+            from { text-shadow: 0 0 5px gold, 0 0 10px gold; }
+            to { text-shadow: 0 0 15px gold, 0 0 25px yellow, 0 0 35px gold; }
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <h1>هجمة الموقع</h1>
-            <p>أكاديمية الاختراق الأخلاقي</p>
+    <div class="background-content">
+        <div class="terminal">
+            <div class="terminal-line"><span class="user">Hajma Ops:</span> Initiating system lockdown...</div>
+            <div class="terminal-line"><span class="user">Hajma Ops:</span> Database sync status: <span style="color: #ffff00;">[IN PROGRESS]</span></div>
+            <div class="terminal-line"><span class="user">Sec-Admin:</span> Acknowledged. Running integrity checks on core files.</div>
+            <div class="terminal-line"><span class="user">Hajma Ops:</span> Critical modules offline. Estimated time: 2-4 hours.</div>
+            <div class="terminal-line"><span class="user">Sec-Admin:</span> OK. Will monitor for anomalies.</div>
+            <div class="terminal-line"><span class="user">Hajma Ops:</span> <span style="color: var(--main-color);">[SYSTEM OFFLINE]</span></div>
+            <div class="terminal-line">_</div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#courses">الدورات</a></li>
-                <li><a href="#tools">أدوات</a></li>
-                <li><a href="#blog">المدونة</a></li>
-                <li><a href="#about">من نحن</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
-            </ul>
-        </nav>
-    </header>
+    </div>
 
-    <main>
-        <section id="home" class="hero-section">
-            <h2>كن محترف أمن سيبراني</h2>
-            <p>انضم إلينا في رحلة لاكتشاف عالم الحماية السيبرانية والاختراق الأخلاقي</p>
-            <a href="#courses" class="cta-button">ابدأ التعلم الآن</a>
-        </section>
-
-        <section id="courses" class="courses-section">
-            <h2>الدورات التدريبية</h2>
-            <div class="course-grid">
-                <div class="course-card">
-                    <h3>أساسيات الأمن السيبراني</h3>
-                    <p>تعرف على المفاهيم الأساسية للأمن السيبراني، وأنواع الهجمات، وكيفية حماية نفسك.</p>
-                    <a href="#" class="details-button">تفاصيل الدورة</a>
-                </div>
-                <div class="course-card">
-                    <h3>اختبار الاختراق المتقدم</h3>
-                    <p>دورة شاملة في اختبار الاختراق باستخدام أدوات مثل Metasploit و Nmap.</p>
-                    <a href="#" class="details-button">تفاصيل الدورة</a>
-                </div>
-                <div class="course-card">
-                    <h3>أمن تطبيقات الويب</h3>
-                    <p>اكتشف الثغرات الأمنية في تطبيقات الويب وكيفية تأمينها ضد هجمات OWASP.</p>
-                    <a href="#" class="details-button">تفاصيل الدورة</a>
-                </div>
-                <div class="course-card">
-                    <h3>التحقيق الجنائي الرقمي</h3>
-                    <p>تعلم كيفية جمع الأدلة وتحليلها للتعامل مع الحوادث السيبرانية.</p>
-                    <a href="#" class="details-button">تفاصيل الدورة</a>
-                </div>
+    <div class="maintenance-overlay">
+        <div class="royal-crown">
+            &#x1F451; 
+        </div>
+        <div class="container">
+            <h1 class="glitch-text" data-text="هجمة">هجمة</h1>
+            <div class="subtitle">النظام تحت الصيانة</div>
+            <p class="message">
+                أنظمتنا تخضع حاليًا لتدقيق أمني وترقيات حرجة. نعتذر عن أي إزعاج قد يسببه ذلك.
+                <br>
+                يرجى العودة لاحقًا للوصول الكامل.
+            </p>
+            
+            <div class="updates-glimpse">
+                <h3>نظرة على التحديثات القادمة</h3>
+                <ul>
+                    <li>تطوير خوارزميات التشفير لتحقيق أقصى قدر من الأمان.</li>
+                    <li>دمج جدار حماية متقدم لصد الهجمات الإلكترونية المحتملة.</li>
+                    <li>إعادة تصميم واجهة المستخدم لتحسين تجربة الملاحة.</li>
+                    <li>إضافة ميزات جديدة مخصصة للأعضاء المسجلين.</li>
+                </ul>
             </div>
-        </section>
+        </div>
+    </div>
+    
+    <div class="chatbot-container">
+        <div class="chat-header">
+            Hajma-Bot
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message-box bot-message">مرحباً! أنا "هاجمة-بوت". كيف يمكنني مساعدتك؟</div>
+        </div>
+        <div class="chat-input">
+            <button id="send-btn">إرسال</button>
+            <input type="text" id="user-input" placeholder="اكتب سؤالك هنا...">
+        </div>
+    </div>
 
-        <section id="tools" class="tools-section">
-            <h2>أدوات الاختراق الأخلاقي</h2>
-            <p>استكشف أشهر الأدوات المستخدمة في عالم الأمن السيبراني مع شرح تفصيلي لكل أداة.</p>
-            <ul>
-                <li><a href="#">Kali Linux</a></li>
-                <li><a href="#">Wireshark</a></li>
-                <li><a href="#">Nmap</a></li>
-                <li><a href="#">Metasploit</a></li>
-                <li><a href="#">Burp Suite</a></li>
-            </ul>
-        </section>
-        
-        <section id="blog" class="blog-section">
-            <h2>أحدث المقالات</h2>
-            <div class="blog-posts">
-                <div class="post-card">
-                    <h3>5 نصائح لحماية بياناتك الشخصية</h3>
-                    <p>توصيات عملية للحفاظ على خصوصيتك وأمنك على الإنترنت.</p>
-                    <a href="#">اقرأ المزيد</a>
-                </div>
-                <div class="post-card">
-                    <h3>مقدمة في الهندسة الاجتماعية</h3>
-                    <p>كيف يفكر المخترقون؟ وما هي أهم تقنيات الهندسة الاجتماعية؟</p>
-                    <a href="#">اقرأ المزيد</a>
-                </div>
-            </div>
-        </section>
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
 
-        <section id="about" class="about-section">
-            <h2>من نحن</h2>
-            <p>هجمة الموقع هي أكاديمية متخصصة في توفير محتوى تعليمي عالي الجودة في مجال الأمن السيبراني والاختراق الأخلاقي. نؤمن بأن المعرفة هي أقوى سلاح للحماية.</p>
-        </section>
+        function appendMessage(message, sender) {
+            const messageEl = document.createElement('div');
+            messageEl.classList.add('message-box');
+            messageEl.classList.add(sender);
+            messageEl.textContent = message;
+            chatMessages.prepend(messageEl);
+        }
 
-        <section id="contact" class="contact-section">
-            <h2>تواصل معنا</h2>
-            <form action="#">
-                <input type="text" name="name" placeholder="الاسم الكامل" required>
-                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                <textarea name="message" placeholder="رسالتك" required></textarea>
-                <button type="submit">إرسال الرسالة</button>
-            </form>
-        </section>
+        function getBotResponse(userMessage) {
+            const lowerCaseMessage = userMessage.toLowerCase().trim();
+            if (lowerCaseMessage.includes("متى") && lowerCaseMessage.includes("اطلاق")) {
+                return "من المتوقع إطلاق الموقع خلال 24-48 ساعة بعد استكمال التحديثات الأمنية.";
+            } else if (lowerCaseMessage.includes("ما") && lowerCaseMessage.includes("اسمك") || lowerCaseMessage.includes("من انت")) {
+                return 'أنا "هاجمة-بوت"، مساعد الذكاء الاصطناعي الخاص بهذا الموقع التقني المتقدم، هنا للمساعدة في استفساراتك حول الصيانة.';
+            } else if (lowerCaseMessage.includes("مرحبا") || lowerCaseMessage.includes("اهلا")) {
+                return "أهلاً بك! كيف يمكنني مساعدتك؟";
+            } else if (lowerCaseMessage.includes("كيف حالك")) {
+                return "أنا نظام ذكاء اصطناعي، ليس لدي مشاعر أو حالة صحية. ولكن الأنظمة تعمل بكفاءة عالية في عملية الصيانة!";
+            } else if (lowerCaseMessage.includes("ما فكرة الموقع") || lowerCaseMessage.includes("عن الموقع")) {
+                return "موقع 'هجمة' هو منصة متخصصة في الأمن السيبراني والتقنيات المتقدمة، ويهدف إلى توفير أحدث الحلول والمعلومات في هذا المجال. نحن نسعى لتقديم تجربة فريدة ومحتوى غني لمستخدمينا.";
+            }
+            else {
+                return "عذراً، لا يمكنني الإجابة على هذا السؤال الآن. تركيزي مُنصب على عمليات الصيانة الحالية.";
+            }
+        }
 
-    </main>
+        sendBtn.addEventListener('click', () => {
+            const message = userInput.value;
+            if (message.trim() !== '') {
+                appendMessage(message, 'user-message');
+                const botResponse = getBotResponse(message);
+                setTimeout(() => {
+                    appendMessage(botResponse, 'bot-message');
+                }, 1000); 
+                userInput.value = '';
+            }
+        });
 
-    <footer>
-        <p>&copy; 2024 هجمة الموقع. جميع الحقوق محفوظة.</p>
-    </footer>
-
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+    </script>
 </body>
 </html>
