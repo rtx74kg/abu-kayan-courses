@@ -160,93 +160,6 @@
             .updates-glimpse {
                 font-size: 0.9em;
             }
-            .chatbot-container {
-                width: 90vw; /* عرض أكبر على الجوال */
-                max-width: 250px; /* حد أقصى للحجم */
-                height: 350px;
-                font-size: 0.8em;
-            }
-        }
-
-        /* تصميم الروبوت */
-        .chatbot-container {
-            position: fixed;
-            bottom: 20px;
-            left: 20px; 
-            width: 280px; /* حجم مصغر افتراضي */
-            height: 380px; /* حجم مصغر افتراضي */
-            background: #111;
-            border: 2px solid var(--main-color);
-            box-shadow: 0 0 15px var(--main-color);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            direction: rtl;
-        }
-        
-        .chat-header {
-            background: #0d1117;
-            color: var(--main-color);
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            border-bottom: 1px solid var(--main-color);
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .chat-messages {
-            flex-grow: 1;
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column-reverse; 
-        }
-        
-        .message-box {
-            margin-bottom: 10px;
-            word-wrap: break-word;
-        }
-        
-        .bot-message {
-            text-align: right;
-            color: var(--main-color);
-            font-size: 0.9em;
-        }
-        
-        .user-message {
-            text-align: left;
-            color: #ccc;
-            font-size: 0.9em;
-        }
-
-        .chat-input {
-            display: flex;
-            border-top: 1px solid var(--main-color);
-            padding: 10px;
-        }
-        
-        .chat-input input {
-            flex-grow: 1;
-            background: #222;
-            border: none;
-            color: var(--main-color);
-            padding: 5px;
-            font-family: 'Cairo', sans-serif;
-            text-align: right;
-            outline: none;
-        }
-        
-        .chat-input button {
-            background: var(--main-color);
-            color: var(--bg-color);
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            font-weight: bold;
-            margin-right: 5px;
         }
 
         /* تصميم التاج الملكي */
@@ -255,11 +168,11 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 3; /* ليكون فوق طبقة الصيانة */
+            z-index: 3; 
             font-size: 3em;
             color: gold;
             text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px yellow;
-            animation: glowing-crown 1.5s infinite alternate; /* تأثير الوميض */
+            animation: glowing-crown 1.5s infinite alternate; 
         }
 
         @keyframes glowing-crown {
@@ -306,68 +219,5 @@
             </div>
         </div>
     </div>
-    
-    <div class="chatbot-container">
-        <div class="chat-header">
-            Hajma-Bot
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <div class="message-box bot-message">مرحباً! أنا "هاجمة-بوت". كيف يمكنني مساعدتك؟</div>
-        </div>
-        <div class="chat-input">
-            <button id="send-btn">إرسال</button>
-            <input type="text" id="user-input" placeholder="اكتب سؤالك هنا...">
-        </div>
-    </div>
-
-    <script>
-        const chatMessages = document.getElementById('chat-messages');
-        const userInput = document.getElementById('user-input');
-        const sendBtn = document.getElementById('send-btn');
-
-        function appendMessage(message, sender) {
-            const messageEl = document.createElement('div');
-            messageEl.classList.add('message-box');
-            messageEl.classList.add(sender);
-            messageEl.textContent = message;
-            chatMessages.prepend(messageEl);
-        }
-
-        function getBotResponse(userMessage) {
-            const lowerCaseMessage = userMessage.toLowerCase().trim();
-            if (lowerCaseMessage.includes("متى") && lowerCaseMessage.includes("اطلاق")) {
-                return "من المتوقع إطلاق الموقع خلال 24-48 ساعة بعد استكمال التحديثات الأمنية.";
-            } else if (lowerCaseMessage.includes("ما") && lowerCaseMessage.includes("اسمك") || lowerCaseMessage.includes("من انت")) {
-                return 'أنا "هاجمة-بوت"، مساعد الذكاء الاصطناعي الخاص بهذا الموقع التقني المتقدم، هنا للمساعدة في استفساراتك حول الصيانة.';
-            } else if (lowerCaseMessage.includes("مرحبا") || lowerCaseMessage.includes("اهلا")) {
-                return "أهلاً بك! كيف يمكنني مساعدتك؟";
-            } else if (lowerCaseMessage.includes("كيف حالك")) {
-                return "أنا نظام ذكاء اصطناعي، ليس لدي مشاعر أو حالة صحية. ولكن الأنظمة تعمل بكفاءة عالية في عملية الصيانة!";
-            } else if (lowerCaseMessage.includes("ما فكرة الموقع") || lowerCaseMessage.includes("عن الموقع")) {
-                return "موقع 'هجمة' هو منصة متخصصة في الأمن السيبراني والتقنيات المتقدمة، ويهدف إلى توفير أحدث الحلول والمعلومات في هذا المجال. نحن نسعى لتقديم تجربة فريدة ومحتوى غني لمستخدمينا.";
-            }
-            else {
-                return "عذراً، لا يمكنني الإجابة على هذا السؤال الآن. تركيزي مُنصب على عمليات الصيانة الحالية.";
-            }
-        }
-
-        sendBtn.addEventListener('click', () => {
-            const message = userInput.value;
-            if (message.trim() !== '') {
-                appendMessage(message, 'user-message');
-                const botResponse = getBotResponse(message);
-                setTimeout(() => {
-                    appendMessage(botResponse, 'bot-message');
-                }, 1000); 
-                userInput.value = '';
-            }
-        });
-
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendBtn.click();
-            }
-        });
-    </script>
 </body>
 </html>
