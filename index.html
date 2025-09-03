@@ -1,197 +1,305 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-16">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هجمة - الموقع تحت الصيانة</title>
+    <title>سايبر نكسس - تحت الصيانة</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto+Mono:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         
-        :root {
-            --bg-color: #0d1117;
-            --main-color: #00ff41;
-            --glitch-color-1: #ff00c8;
-            --glitch-color-2: #00ffff;
-            --overlay-color: rgba(13, 17, 23, 0.95);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Share Tech Mono', monospace;
         }
         
         body {
-            background-color: var(--bg-color);
-            color: var(--main-color);
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-            margin: 0;
+            background: #000;
+            color: #0ff;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
             text-align: center;
             position: relative;
-        }
-
-        /* الطبقة الخلفية (الموقع الوهمي) */
-        .background-content {
-            position: fixed; /* تم تثبيت الخلفية لتملأ الشاشة */
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Roboto Mono', monospace;
-            color: #555;
-            background-color: #000;
-        }
-        
-        .terminal {
-            width: 90%;
-            max-width: 900px;
-            height: 80vh;
-            background-color: #111;
-            border: 2px solid #222;
-            padding: 20px;
-            overflow-y: auto;
-            text-align: left;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-        }
-        
-        .terminal-line {
-            line-height: 1.5;
-            white-space: pre-wrap;
-        }
-        
-        .terminal-line .user {
-            color: var(--main-color);
-        }
-
-        /* الطبقة الأمامية (صفحة الصيانة) */
-        .maintenance-overlay {
-            position: relative; /* تم تغيير الوضع إلى نسبي للسماح بالتمرير */
             z-index: 2;
-            background-color: var(--overlay-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh; /* تأكد من أن الصفحة طويلة بما يكفي */
-            padding: 50px 0; /* لإضافة مساحة علوية وسفلية */
-        }
-
-        .container {
-            max-width: 90vw;
-            padding: 20px;
-            border: 2px solid var(--main-color);
-            box-shadow: 0 0 15px var(--main-color);
-            position: relative;
-            background: rgba(13, 17, 23, 0.8);
-            direction: rtl;
-            margin-top: 50px;
-            margin-bottom: 50px;
         }
         
-        .glitch-text {
-            font-size: 3em;
-            font-weight: 700;
+        .glitch {
+            font-size: 5rem;
+            font-weight: bold;
+            text-transform: uppercase;
             position: relative;
-            animation: glitch-anim 2.5s infinite;
+            text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            animation: glitch 2000ms infinite;
+            margin-bottom: 1rem;
         }
         
         .subtitle {
-            font-size: 1.5em;
-            margin-top: 10px;
-            color: #ccc;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #f0f;
         }
         
         .message {
-            font-size: 1.2em;
-            margin-top: 20px;
-            line-height: 1.6;
-        }
-
-        .updates-glimpse {
-            margin-top: 40px;
-            padding: 15px;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            text-align: right;
-            font-family: 'Roboto Mono', monospace;
-            direction: ltr;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #0ff;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 0 15px #0ff;
         }
         
-        .updates-glimpse h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.1em;
-            color: #fff;
-            text-align: center;
-        }
-
-        .updates-glimpse ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .updates-glimpse li {
-            margin-bottom: 8px;
-            color: #888;
-            font-size: 0.9em;
+        .progress-container {
+            width: 100%;
+            height: 30px;
+            background: #000;
+            border: 1px solid #0ff;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 0 10px #0ff;
         }
         
-        .updates-glimpse li::before {
-            content: ">> ";
-            color: var(--main-color);
+        .progress-bar {
+            height: 100%;
+            width: 82%;
+            background: linear-gradient(90deg, #f0f, #0ff);
+            animation: progress 5s infinite alternate;
         }
-
-        /* Responsive adjustments */
+        
+        .code-snippets {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .code {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #f0f;
+            padding: 1rem;
+            border-radius: 5px;
+            width: 45%;
+            text-align: left;
+            font-size: 0.8rem;
+            box-shadow: 0 0 10px #f0f;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            color: #ff0;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px dashed #ff0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.2;
+        }
+        
+        .countdown {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: #ff0;
+        }
+        
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                    0.05em 0 0 rgba(0, 255, 0, 0.75),
+                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                    0.05em 0 0 rgba(0, 255, 0, 0.75),
+                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+        }
+        
+        @keyframes progress {
+            0% {
+                width: 82%;
+            }
+            100% {
+                width: 87%;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .glitch-text {
-                font-size: 2em;
+            .glitch {
+                font-size: 3rem;
             }
-            .subtitle {
-                font-size: 1.2em;
-            }
-            .message {
-                font-size: 1em;
-            }
-            .updates-glimpse {
-                font-size: 0.9em;
+            
+            .code {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-
-    <div class="background-content">
-        <div class="terminal">
-            <div class="terminal-line"><span class="user">Hajma Ops:</span> Initiating system lockdown...</div>
-            <div class="terminal-line"><span class="user">Hajma Ops:</span> Database sync status: <span style="color: #ffff00;">[IN PROGRESS]</span></div>
-            <div class="terminal-line"><span class="user">Sec-Admin:</span> Acknowledged. Running integrity checks on core files.</div>
-            <div class="terminal-line"><span class="user">Hajma Ops:</span> Critical modules offline. Estimated time: 2-4 hours.</div>
-            <div class="terminal-line"><span class="user">Sec-Admin:</span> OK. Will monitor for anomalies.</div>
-            <div class="terminal-line"><span class="user">Hajma Ops:</span> <span style="color: var(--main-color);">[SYSTEM OFFLINE]</span></div>
-            <div class="terminal-line">_</div>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    
+    <div class="container">
+        <h1 class="glitch">سايبر نكسس</h1>
+        <p class="subtitle">الموقع قيد التطوير والصيانة</p>
+        
+        <div class="message">
+            <p>نعمل على تحديث النظام لخدمتكم بشكل أفضل.</p>
+            <p>نعود إليكم قريبًا بتجربة أكثر تقدمًا.</p>
         </div>
-    </div>
-
-    <div class="maintenance-overlay">
-        <div class="container">
-            <h1 class="glitch-text" data-text="هجمة">هجمة</h1>
-            <div class="subtitle">النظام تحت الصيانة</div>
-            <p class="message">
-                أنظمتنا تخضع حاليًا لتدقيق أمني وترقيات حرجة. نعتذر عن أي إزعاج قد يسببه ذلك.
-                <br>
-                يرجى العودة لاحقًا للوصول الكامل.
-            </p>
+        
+        <div class="countdown" id="countdown">جاري تحميل النظام: 00:00:00</div>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <div class="code-snippets">
+            <div class="code">
+                <div class="code-header">JavaScript</div>
+                <pre><code>function initMatrix() {
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  // كود المصفوفة سيذهب هنا
+}</code></pre>
+            </div>
             
-            <div class="updates-glimpse">
-                <h3>نظرة على التحديثات القادمة</h3>
-                <ul>
-                    <li>تطوير خوارزميات التشفير لتحقيق أقصى قدر من الأمان.</li>
-                    <li>دمج جدار حماية متقدم لصد الهجمات الإلكترونية المحتملة.</li>
-                    <li>إعادة تصميم واجهة المستخدم لتحسين تجربة الملاحة.</li>
-                    <li>إضافة ميزات جديدة مخصصة للأعضاء المسجلين.</li>
-                </ul>
+            <div class="code">
+                <div class="code-header">Python</div>
+                <pre><code>def cyber_init():
+    while under_construction:
+        enhance_security()
+        optimize_performance()
+        return "Ready soon!"</code></pre>
+            </div>
+            
+            <div class="code">
+                <div class="code-header">HTML/CSS</div>
+                <pre><code>.glitch {
+  text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+    -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  animation: glitch 2000ms infinite;
+}</code></pre>
+            </div>
+            
+            <div class="code">
+                <div class="code-header">PHP</div>
+                <pre><code>&lt;?php
+$cyberNexus = new CyberWorld();
+$maintenance = true;
+if ($maintenance) {
+    header("Location: /maintenance");
+    exit;
+}
+?&gt;</code></pre>
             </div>
         </div>
     </div>
+
+    <script>
+        // Matrix Background Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const letters = '01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0f0';
+            ctx.font = `${fontSize}px monospace`;
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 33);
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date();
+            target.setHours(23, 59, 59);
+            
+            const diff = target - now;
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').innerHTML = 
+                `جاري تحميل النظام: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Responsive canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
