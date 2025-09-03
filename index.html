@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سايبر نكسس - تحت الصيانة</title>
+    <title>سايبر نكس - تحت الصيانة</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@300;400;700&display=swap');
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'Changa', sans-serif;
         }
         
         body {
-            background: #000;
-            color: #0ff;
+            background: #0a0a16;
+            color: #e0e0ff;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
             position: relative;
         }
         
         .container {
             max-width: 800px;
-            margin: 0 auto;
             padding: 2rem;
             text-align: center;
             position: relative;
@@ -34,135 +36,149 @@
         .glitch {
             font-size: 5rem;
             font-weight: bold;
-            text-transform: uppercase;
             position: relative;
-            text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-                -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
-                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            animation: glitch 2000ms infinite;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 #ff00d4, -2px -2px 0 #00ffff;
+            animation: glitch-effect 3s infinite;
         }
         
         .subtitle {
             font-size: 1.5rem;
             margin-bottom: 2rem;
-            color: #f0f;
+            color: #a0a0ff;
         }
         
         .message {
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #0ff;
+            background: rgba(10, 10, 30, 0.8);
+            border: 1px solid #5252f9;
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 5px;
-            box-shadow: 0 0 15px #0ff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(82, 82, 249, 0.3);
+            backdrop-filter: blur(5px);
         }
         
         .progress-container {
             width: 100%;
             height: 30px;
-            background: #000;
-            border: 1px solid #0ff;
-            border-radius: 5px;
+            background: rgba(10, 10, 30, 0.8);
+            border: 1px solid #5252f9;
+            border-radius: 15px;
             margin-bottom: 2rem;
             overflow: hidden;
-            box-shadow: 0 0 10px #0ff;
+            box-shadow: 0 0 15px rgba(82, 82, 249, 0.3);
         }
         
         .progress-bar {
             height: 100%;
-            width: 82%;
-            background: linear-gradient(90deg, #f0f, #0ff);
+            width: 72%;
+            background: linear-gradient(90deg, #ff00d4, #5252f9);
             animation: progress 5s infinite alternate;
+            border-radius: 15px;
         }
         
-        .code-snippets {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .code {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #f0f;
-            padding: 1rem;
-            border-radius: 5px;
-            width: 45%;
-            text-align: left;
-            font-size: 0.8rem;
-            box-shadow: 0 0 10px #f0f;
-            overflow: hidden;
-        }
-        
-        .code-header {
-            color: #ff0;
-            margin-bottom: 0.5rem;
-            border-bottom: 1px dashed #ff0;
-            padding-bottom: 0.5rem;
-        }
-        
-        .matrix-bg {
+        .cyber-grid {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: linear-gradient(rgba(18, 16, 46, 0.7) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(18, 16, 46, 0.7) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: 1;
-            opacity: 0.2;
+            perspective: 500px;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(82, 82, 249, 0.1);
+            border: 1px solid rgba(82, 82, 249, 0.3);
+            border-radius: 5px;
+            animation: float 15s infinite linear;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 20s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 50px;
+            height: 50px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 15s;
+            animation-delay: 1s;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 70%;
+            left: 15%;
+            animation-duration: 25s;
+            animation-delay: 0.5s;
+        }
+        
+        .floating-element:nth-child(4) {
+            width: 60px;
+            height: 60px;
+            top: 25%;
+            left: 75%;
+            animation-duration: 18s;
+            animation-delay: 2s;
         }
         
         .countdown {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            color: #ff0;
+            font-size: 1.8rem;
+            margin: 1.5rem 0;
+            color: #ff00d4;
+            font-weight: bold;
         }
         
-        @keyframes glitch {
+        @keyframes glitch-effect {
             0% {
-                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            14% {
-                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            15% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            49% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: 2px 2px 0 #ff00d4, -2px -2px 0 #00ffff;
             }
             50% {
-                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-                    0.05em 0 0 rgba(0, 255, 0, 0.75),
-                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            99% {
-                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-                    0.05em 0 0 rgba(0, 255, 0, 0.75),
-                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: -2px -2px 0 #ff00d4, 2px 2px 0 #00ffff;
             }
             100% {
-                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
-                    -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: 2px 2px 0 #ff00d4, -2px -2px 0 #00ffff;
             }
         }
         
         @keyframes progress {
             0% {
-                width: 82%;
+                width: 72%;
             }
             100% {
-                width: 87%;
+                width: 78%;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
             }
         }
         
@@ -171,98 +187,64 @@
                 font-size: 3rem;
             }
             
-            .code {
-                width: 100%;
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .message {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <canvas class="matrix-bg" id="matrix"></canvas>
+    <div class="cyber-grid"></div>
+    
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
     
     <div class="container">
-        <h1 class="glitch">سايبر نكسس</h1>
+        <h1 class="glitch">سايبر نكس</h1>
         <p class="subtitle">الموقع قيد التطوير والصيانة</p>
         
         <div class="message">
             <p>نعمل على تحديث النظام لخدمتكم بشكل أفضل.</p>
-            <p>نعود إليكم قريبًا بتجربة أكثر تقدمًا.</p>
+            <p>نعود إليكم قريبًا بتجربة أكثر تقدمًا وغموضًا.</p>
         </div>
         
-        <div class="countdown" id="countdown">جاري تحميل النظام: 00:00:00</div>
-   
-}
-?&gt;</code></pre>
-            </div>
+        <div class="countdown" id="countdown">00:00:00:00</div>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
         </div>
     </div>
 
     <script>
-        // Matrix Background Effect
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        const letters = '01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        
-        const drops = [];
-        for (let i = 0; i < columns; i++) {
-            drops[i] = 1;
-        }
-        
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#0f0';
-            ctx.font = `${fontSize}px monospace`;
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                
-                drops[i]++;
-            }
-        }
-        
-        setInterval(drawMatrix, 33);
-        
         // Countdown Timer
         function updateCountdown() {
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 3);
+            
             const now = new Date();
-            const target = new Date();
-            target.setHours(23, 59, 59);
+            const diff = targetDate - now;
             
-            const diff = target - now;
-            
-            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
             document.getElementById('countdown').innerHTML = 
-                `جاري تحميل النظام: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
         
         setInterval(updateCountdown, 1000);
         updateCountdown();
-        
-        // Responsive canvas
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
     </script>
 </body>
 </html>
-
-
 
 
